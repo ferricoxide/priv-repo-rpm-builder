@@ -1,0 +1,49 @@
+language: shell
+sudo: required
+env:
+  global:
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS=all
+
+matrix:
+  include:
+    - env:
+        - OS_TYPE=centos OS_VERSION=7
+      services:
+        - docker
+
+before_install:
+  - sudo apt-get update
+  - |
+    echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | \
+      sudo tee /etc/default/docker > /dev/null
+    sudo service docker restart
+    sleep 5
+    sudo docker pull centos:centos${OS_VERSION}
+    sudo docker build -t local/centos:${OS_VERSION} tests/docker/centos${OS_VERSION}
+
+install:
+  - |
+    sudo docker run --detach --privileged \
+      --volume="${TRAVIS_BUILD_DIR}":"${TRAVIS_BUILD_DIR}":ro \
+      --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro \
+      --volume="$( pwd )":/project:rw \
+      --name centos-${OS_VERSION} local/centos:${OS_VERSION} init
+    sudo docker exec centos-${OS_VERSION} yum -y update
+    sudo docker exec centos-${OS_VERSION} yum -y install rpm-build
+    sudo docker exec centos-${OS_VERSION} groupadd -g 2000 rpmbuilder
+    sudo docker exec centos-${OS_VERSION} adduser -g 2000 -u 2000 rpmbuilder
+    # sudo docker exec centos-${OS_VERSION} chown -R rpmbuilder:rpmbuilder /project
+    
+script:
+  - |
+    sudo docker exec centos-${OS_VERSION} /bin/bash /project/support/scripts/build-rpms.sh
+
+after_script:
+  - |
+    sudo docker stop centos-${OS_VERSION}
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
