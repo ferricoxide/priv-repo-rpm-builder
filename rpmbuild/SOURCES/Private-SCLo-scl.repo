@@ -1,0 +1,34 @@
+#
+# Please see http://wiki.centos.org/SpecialInterestGroup/SCLo for more
+# information
+#
+######################################################################
+
+[__PRIVREPO__-sclo-sclo]
+name=CentOS-7 - SCLo sclo (__PRIVREPO__)
+baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/7/sclo/$basearch/sclo/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+
+## [__PRIVREPO__-sclo-sclo-testing]
+## name=CentOS-7 - SCLo sclo Testing (__PRIVREPO__)
+## baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/7/sclo/Testing/$basearch/sclo/
+## gpgcheck=0
+## enabled=0
+## gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+
+[__PRIVREPO__-sclo-sclo-source]
+name=CentOS-7 - SCLo sclo Sources (__PRIVREPO__)
+baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/7/sclo/Source/sclo/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+
+## [__PRIVREPO__-sclo-sclo-debuginfo]
+## name=CentOS-7 - SCLo sclo Debuginfo (__PRIVREPO__)
+## baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/7/sclo/Debug/$basearch/
+## gpgcheck=1
+## enabled=0
+## gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+
