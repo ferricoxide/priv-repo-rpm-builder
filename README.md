@@ -8,6 +8,20 @@ The `.spec` files included in this project use simple `sed` filters to convert t
 
 Systems with the requisite RPMs installed can then fetch from local/private yum repository-mirrors as though they were fetching packages from their Internet-hosted/public analogues.
 
+## Testing
+
+### TravisCI
+
+This project includes a `.travis.yml` file. Any time a commit &ndash; or group of commits &ndash; is pushed to GitHub, a test-job will be kicked off within the TravisCI service. This job:
+
+1. Launches a build-host within TravisCI's environment
+1. Installs and enables the Docker service
+1. Downloads the GitHub project's contents to the build-host
+1. Starts a CentOS 7 container from DockerHub, mapping the project contents into the container
+1. Iterates over the various spec-files, and attempting to build throw-away RPMs
+
+If RPMs are able to be created from each of the iterated spec-files, the test will return green. Failure to build from any given spec-file should cause the job to fail at the first-encountered build-error.
+
 ## Usage
 
 This project's file-layout is designed to foster the creation of RPMs. All RPM-related files are stored under the `<PROJECT_ROOT>/rpmbuild` directory-tree. The simplest method for creating RPMs is to do something like:
