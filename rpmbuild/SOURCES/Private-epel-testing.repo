@@ -1,0 +1,20 @@
+[__PRIVREPO__-epel-testing]
+name=Extra Packages for Enterprise Linux 7 - Testing - $basearch (__PRIVREPO__)
+baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/epel/testing/7/$basearch
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
+[__PRIVREPO__-epel-testing-debuginfo]
+name=Extra Packages for Enterprise Linux 7 - Testing - $basearch - Debug (__PRIVREPO__)
+baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/epel/testing/7/$basearch/debug
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+gpgcheck=1
+
+[__PRIVREPO__-epel-testing-source]
+name=Extra Packages for Enterprise Linux 7 - Testing - $basearch - Source (__PRIVREPO__)
+baseurl=http://__MIRROR_HOST__/__PATH_ROOT__/epel/testing/7/SRPMS
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+gpgcheck=1
